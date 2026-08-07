@@ -8,37 +8,31 @@ A personal project to track job applications, visualize progress, analyze trends
 - Let a chatbot answer questions about your application history
 - Optionally auto-record applications from confirmations or browser actions
 
-## Step-by-step plan
-
-### Phase 1 - MVP
+## MVP goals
 - Add an application with company, role, date applied, location, source, status, and notes
 - View and search all applications
 - Update or delete an application
-- Filter by status such as applied, interviewing, rejected, or offer
-- Show basic summary counts
+- Filter by status such as Applied, Interviewing, Rejected, or Offer
+- Import existing Excel exports as CSV
+- Store data locally in the browser
 
-### Phase 2 - Visualization
-- Charts for applications over time
-- Status breakdown charts
-- Response rate and interview conversion analytics
+## Current status
+This starter version includes:
+- A simple single-page tracker UI
+- Local browser storage for applications
+- CSV import support for spreadsheet-style exports
+- Basic filtering and search
 
-### Phase 3 - AI assistant
-- Natural-language search for companies, roles, and statuses
-- Questions such as "Show me all pending applications from last month"
-- Simple summaries and insights from stored data
+## Run locally
+Open the index.html file in a browser, or serve the folder with a simple static server such as:
 
-### Phase 4 - Automation
-- One-click save from a browser
-- Auto-import from email confirmations
-- Optional browser extension for faster recording
+```bash
+python3 -m http.server 8000
+```
 
-## Tech choices
-- Frontend: React or Next.js
-- Backend: Node.js or Python
-- Database: SQLite for the MVP, then PostgreSQL or Supabase
-- Approach: local-first first, then cloud if needed
+Then visit http://localhost:8000.
 
-## First milestone
-Build a simple CRUD app with a searchable list and a basic dashboard.
-
-Start
+## Future roadmap
+- CSV mapping for common Excel headers
+- Better analytics and charts
+- Search and summaries with AI assistance

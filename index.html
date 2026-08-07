@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Application Tracker MVP</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">MVP</p>
+          <h1>Application Tracker</h1>
+          <p class="subtitle">
+            Capture applications, filter them quickly, and import your old Excel export as CSV.
+          </p>
+        </div>
+        <div class="hero-actions">
+          <label class="button secondary" for="csvInput">Import CSV</label>
+          <input id="csvInput" type="file" accept=".csv,text/csv" hidden />
+        </div>
+      </section>
+
+      <section class="panel form-panel">
+        <h2 id="formTitle">Add an application</h2>
+        <form id="applicationForm">
+          <input type="hidden" id="applicationId" />
+          <div class="grid">
+            <label>
+              Company
+              <input name="company" required />
+            </label>
+            <label>
+              Role
+              <input name="role" required />
+            </label>
+            <label>
+              Date Applied
+              <input name="dateApplied" type="date" required />
+            </label>
+            <label>
+              Status
+              <select name="status">
+                <option value="Applied">Applied</option>
+                <option value="Interviewing">Interviewing</option>
+                <option value="Rejected">Rejected</option>
+                <option value="Offer">Offer</option>
+              </select>
+            </label>
+            <label>
+              Location
+              <input name="location" />
+            </label>
+            <label>
+              Source
+              <input name="source" />
+            </label>
+          </div>
+          <label>
+            Notes
+            <textarea name="notes" rows="3"></textarea>
+          </label>
+          <div class="form-actions">
+            <button type="submit">Save application</button>
+            <button type="button" class="secondary" id="cancelEdit">Cancel</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="toolbar">
+          <div class="summary-cards">
+            <div class="summary-card">
+              <span>Total</span>
+              <strong id="totalCount">0</strong>
+            </div>
+            <div class="summary-card">
+              <span>Applied</span>
+              <strong id="appliedCount">0</strong>
+            </div>
+            <div class="summary-card">
+              <span>Interviewing</span>
+              <strong id="interviewingCount">0</strong>
+            </div>
+            <div class="summary-card">
+              <span>Offers</span>
+              <strong id="offersCount">0</strong>
+            </div>
+          </div>
+          <div class="toolbar-controls">
+            <input id="searchInput" type="search" placeholder="Search company or role" />
+            <select id="statusFilter">
+              <option value="all">All statuses</option>
+              <option value="Applied">Applied</option>
+              <option value="Interviewing">Interviewing</option>
+              <option value="Rejected">Rejected</option>
+              <option value="Offer">Offer</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Company</th>
+                <th>Role</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Location</th>
+                <th>Source</th>
+                <th>Notes</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="applicationTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
