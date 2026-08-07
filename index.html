@@ -19,77 +19,86 @@
         </div>
       </section>
 
-      <section class="panel form-panel">
-        <h2 id="formTitle">Add an application</h2>
-        <form id="applicationForm">
-          <input type="hidden" id="applicationId" />
-          <div class="grid">
-            <label>
-              Company
-              <input name="company" required />
-            </label>
-            <label>
-              Role
-              <input name="role" required />
-            </label>
-            <label>
-              Date Applied
-              <input name="dateApplied" type="date" required />
-            </label>
-            <label>
-              Status
-              <select name="status">
-                <option value="Applied">Applied</option>
-                <option value="Interviewing">Interviewing</option>
-                <option value="Rejected">Rejected</option>
-                <option value="Offer">Offer</option>
-              </select>
-            </label>
-            <label>
-              Location
-              <input name="location" />
-            </label>
-            <label>
-              Source
-              <input name="source" />
-            </label>
-          </div>
-          <div class="form-actions">
-            <button type="submit">Save application</button>
-            <button type="button" class="secondary" id="cancelEdit">Cancel</button>
-          </div>
-        </form>
-      </section>
+      <section class="panel applications-panel">
+        <div class="applications-header">
+          <h2>Applications</h2>
+          <button type="button" id="toggleFormButton" class="icon-button" aria-expanded="false" aria-label="Add application">+</button>
+        </div>
 
-      <section class="panel">
+        <div id="applicationFormContainer" class="add-form-container hidden">
+          <h3 id="formTitle">Add an application</h3>
+          <form id="applicationForm">
+            <input type="hidden" id="applicationId" />
+            <div class="grid">
+              <label>
+                Date Applied
+                <input name="dateApplied" type="date" required />
+              </label>
+              <label>
+                Company
+                <input name="company" required />
+              </label>
+              <label>
+                Role
+                <input name="role" required />
+              </label>
+              <label>
+                Stage
+                <select name="stage">
+                  <option value="">None</option>
+                  <option value="Review">Review</option>
+                  <option value="Phone">Phone</option>
+                  <option value="OA">OA</option>
+                  <option value="VO">VO</option>
+                </select>
+              </label>
+              <label>
+                Status
+                <select name="status">
+                  <option value="Applied">Applied</option>
+                  <option value="Interview">Interview</option>
+                  <option value="Rejected">Rejected</option>
+                  <option value="Ghosted">Ghosted</option>
+                  <option value="Offer">Offer</option>
+                </select>
+              </label>
+              <label>
+                Location
+                <input name="location" />
+              </label>
+            </div>
+            <div class="form-actions">
+              <button type="submit">Save application</button>
+              <button type="button" class="secondary" id="cancelEdit">Cancel</button>
+            </div>
+          </form>
+        </div>
+
         <div class="toolbar">
           <div class="summary-cards">
-            <div class="summary-card">
+            <button type="button" class="summary-card active" data-status="Total">
               <span>Total</span>
               <strong id="totalCount">0</strong>
-            </div>
-            <div class="summary-card">
+            </button>
+            <button type="button" class="summary-card" data-status="Applied">
               <span>Applied</span>
               <strong id="appliedCount">0</strong>
-            </div>
-            <div class="summary-card">
-              <span>Interviewing</span>
-              <strong id="interviewingCount">0</strong>
-            </div>
-            <div class="summary-card">
-              <span>Offers</span>
+            </button>
+            <button type="button" class="summary-card" data-status="Rejected">
+              <span>Rejected</span>
+              <strong id="rejectedCount">0</strong>
+            </button>
+            <button type="button" class="summary-card" data-status="Ghosted">
+              <span>Ghosted</span>
+              <strong id="ghostedCount">0</strong>
+            </button>
+            <button type="button" class="summary-card" data-status="Offer">
+              <span>Offer</span>
               <strong id="offersCount">0</strong>
-            </div>
+            </button>
           </div>
           <div class="toolbar-controls">
-            <input id="searchInput" type="search" placeholder="Search company or role" />
-            <select id="statusFilter">
-              <option value="all">All</option>
-              <option value="Applied">Applied</option>
-              <option value="Interviewing">Interviewing</option>
-              <option value="Rejected">Rejected</option>
-              <option value="Offer">Offer</option>
-            </select>
+            <input id="searchInput" type="search" placeholder="Search Company or Role" />
           </div>
         </div>
 
@@ -97,12 +106,12 @@
           <table>
             <thead>
               <tr>
+                <th>Date</th>
                 <th>Company</th>
                 <th>Role</th>
-                <th>Date</th>
+                <th>Stage</th>
                 <th>Status</th>
                 <th>Location</th>
-                <th>Source</th>
                 <th>Actions</th>
               </tr>
             </thead>

@@ -45,4 +45,17 @@ test('creates, updates, deletes, and filters applications', () => {
   const filtered = filterApplications(applications, 'Rejected');
   assert.equal(filtered.length, 1);
   assert.equal(filtered[0].company, 'B');
+
+  const filteredByStatusAndQuery = filterApplications(
+    [
+      createApplication([], { company: 'Acme', role: 'Engineer', dateApplied: '2026-01-01', status: 'Rejected' }),
+      createApplication([], { company: 'Beta', role: 'Designer', dateApplied: '2026-01-02', status: 'Rejected' }),
+      createApplication([], { company: 'Gamma', role: 'Engineer', dateApplied: '2026-01-03', status: 'Applied' })
+    ],
+    'Rejected',
+    'beta'
+  );
+
+  assert.equal(filteredByStatusAndQuery.length, 1);
+  assert.equal(filteredByStatusAndQuery[0].company, 'Beta');
 });
