@@ -12,9 +12,6 @@
         <div>
           <p class="eyebrow">MVP</p>
           <h1>Application Tracker</h1>
-          <p class="subtitle">
-            Capture applications, filter them quickly, and import your old Excel export as CSV.
-          </p>
         </div>
         <div class="hero-actions">
           <label class="button secondary" for="csvInput">Import CSV</label>
@@ -57,10 +54,6 @@
               <input name="source" />
             </label>
           </div>
-          <label>
-            Notes
-            <textarea name="notes" rows="3"></textarea>
-          </label>
           <div class="form-actions">
             <button type="submit">Save application</button>
             <button type="button" class="secondary" id="cancelEdit">Cancel</button>
@@ -91,7 +84,7 @@
           <div class="toolbar-controls">
             <input id="searchInput" type="search" placeholder="Search company or role" />
             <select id="statusFilter">
-              <option value="all">All statuses</option>
+              <option value="all">All</option>
               <option value="Applied">Applied</option>
               <option value="Interviewing">Interviewing</option>
               <option value="Rejected">Rejected</option>
@@ -110,7 +103,6 @@
                 <th>Status</th>
                 <th>Location</th>
                 <th>Source</th>
-                <th>Notes</th>
                 <th>Actions</th>
               </tr>
             </thead>

@@ -48,8 +48,7 @@ function buildApplicationFromForm() {
     dateApplied: String(data.get('dateApplied') || '').trim(),
     location: String(data.get('location') || '').trim(),
     source: String(data.get('source') || '').trim(),
-    status: String(data.get('status') || 'Applied').trim(),
-    notes: String(data.get('notes') || '').trim()
+    status: String(data.get('status') || 'Applied').trim()
   };
 }
 
@@ -90,7 +89,6 @@ function editApplication(id) {
   form.elements.status.value = item.status || 'Applied';
   form.elements.location.value = item.location || '';
   form.elements.source.value = item.source || '';
-  form.elements.notes.value = item.notes || '';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -151,8 +149,6 @@ function parseApplicationsCsv(csvText) {
     const location = record.location || record.city || '';
     const source = record.source || record.link || record.medium || '';
     const status = record.status || 'Applied';
-    const notes = record.notes || record.comments || '';
-
     return {
       id: createId(),
       company: company.trim(),
@@ -160,8 +156,7 @@ function parseApplicationsCsv(csvText) {
       dateApplied: dateApplied.trim(),
       location: location.trim(),
       source: source.trim(),
-      status: status.trim() || 'Applied',
-      notes: notes.trim()
+      status: status.trim() || 'Applied'
     };
   });
 }
@@ -196,7 +191,7 @@ function renderApplications() {
   const visibleApplications = getVisibleApplications();
 
   if (visibleApplications.length === 0) {
-    tableBody.innerHTML = '<tr><td colspan="8" class="empty">No applications yet. Add one manually or import a CSV.</td></tr>';
+    tableBody.innerHTML = '<tr><td colspan="7" class="empty">No applications yet. Add one manually or import a CSV.</td></tr>';
   } else {
     tableBody.innerHTML = visibleApplications
       .map(
@@ -208,7 +203,6 @@ function renderApplications() {
             <td>${application.status || 'Applied'}</td>
             <td>${application.location || '—'}</td>
             <td>${application.source || '—'}</td>
-            <td>${application.notes || '—'}</td>
             <td>
               <div class="actions">
                 <button type="button" class="secondary" data-action="edit" data-id="${application.id}">Edit</button>

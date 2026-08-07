@@ -10,8 +10,7 @@ function createApplication(applications, data) {
     dateApplied: data.dateApplied || '',
     location: data.location || '',
     source: data.source || '',
-    status: data.status || 'Applied',
-    notes: data.notes || ''
+    status: data.status || 'Applied'
   };
 
   return application;
@@ -61,8 +60,7 @@ function parseApplicationsCsv(csv) {
       dateApplied: application.date || application.dateapplied || application.applieddate || '',
       location: application.location || application.city || '',
       source: application.source || application.link || application.url || '',
-      status: application.status || 'Applied',
-      notes: application.notes || application.comments || ''
+      status: application.status || 'Applied'
     };
   });
 }

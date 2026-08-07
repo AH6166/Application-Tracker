@@ -4,9 +4,9 @@ const { parseApplicationsCsv, createApplication, updateApplication, deleteApplic
 
 test('parses a simple CSV export into applications', () => {
   const csv = [
-    'company,role,dateApplied,status,location,source,notes',
-    'Acme,Software Engineer,2026-08-01,Applied,Seattle,LinkedIn,Excited about the team',
-    'Globex,Product Manager,2026-07-15,Interviewing,Remote,Referral,Phone screen scheduled'
+    'company,role,dateApplied,status,location,source',
+    'Acme,Software Engineer,2026-08-01,Applied,Seattle,LinkedIn',
+    'Globex,Product Manager,2026-07-15,Interviewing,Remote,Referral'
   ].join('\n');
 
   const applications = parseApplicationsCsv(csv);
@@ -25,8 +25,7 @@ test('creates, updates, deletes, and filters applications', () => {
     dateApplied: '2026-08-06',
     status: 'Applied',
     location: 'Austin',
-    source: 'Indeed',
-    notes: 'Portfolio reviewed'
+    source: 'Indeed'
   });
 
   applications = [created];
