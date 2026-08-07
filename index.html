@@ -3,14 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Application Tracker MVP</title>
+    <title>Application Tracker</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main class="app-shell">
       <section class="hero">
         <div>
-          <p class="eyebrow">MVP</p>
           <h1>Application Tracker</h1>
         </div>
         <div class="hero-actions">
@@ -100,6 +99,13 @@
           <div class="toolbar-controls">
             <input id="searchInput" type="search" placeholder="Search Company or Role" />
           </div>
+        </div>
+
+        <div class="sankey-panel">
+          <div class="sankey-header">
+            <h3>Application flow</h3>
+          </div>
+          <div id="sankeyChart" class="sankey-chart" aria-label="Application flow chart"></div>
         </div>
 
         <div class="table-wrap">
