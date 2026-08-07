@@ -40,3 +40,5 @@ A personal project to track job applications, visualize progress, analyze trends
 
 ## First milestone
 Build a simple CRUD app with a searchable list and a basic dashboard.
+
+Start
