@@ -29,9 +29,17 @@ function deleteApplication(applications, id) {
   return applications.filter((application) => application.id !== id);
 }
 
-function filterApplications(applications, status) {
-  if (!status) return applications;
-  return applications.filter((application) => application.status === status);
+function filterApplications(applications, status, query = '') {
+  const normalizedQuery = String(query || '').trim().toLowerCase();
+
+  return applications.filter((application) => {
+    const matchesStatus = !status || application.status === status;
+    const matchesQuery =
+      !normalizedQuery ||
+      `${application.company} ${application.role}`.toLowerCase().includes(normalizedQuery);
+
+    return matchesStatus && matchesQuery;
+  });
 }
 
 function parseApplicationsCsv(csv) {
