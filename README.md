@@ -1,38 +1,64 @@
 # Application Tracker
 
-A personal project to track job applications, visualize progress, analyze trends, and eventually support conversational search and automation.
+A lightweight browser-based job application tracker built with plain HTML, CSS, and JavaScript.
 
-## Vision
-- Keep a single record of every application
-- Show visual insights such as status breakdowns, applications over time, and response rates
-- Let a chatbot answer questions about your application history
-- Optionally auto-record applications from confirmations or browser actions
+## What it does today
+- Track applications with company, role, date applied, location, stage, and status
+- Add, edit, and delete records through an intuitive form
+- Search by company or role and filter by status using summary cards
+- Import application data from CSV files with header normalization for common formats
+- Persist data locally using browser localStorage
+- Automatically mark old review-stage applications as ghosted after 60 days
 
-## MVP goals
-- Add an application with company, role, date applied, location, source, status, and notes
-- View and search all applications
-- Update or delete an application
-- Filter by status such as Applied, Interviewing, Rejected, or Offer
-- Import existing Excel exports as CSV
-- Store data locally in the browser
+## Technology stack
+- Frontend: HTML, CSS, JavaScript
+- Storage: browser localStorage for the client-side version
+- Backend: Express REST API with optional PostgreSQL persistence via `DATABASE_URL`
+- Import: client-side CSV parsing and field normalization
 
 ## Current status
-This starter version includes:
-- A simple single-page tracker UI
-- Local browser storage for applications
-- CSV import support for spreadsheet-style exports
-- Basic filtering and search
+This version includes:
+- Single-page tracker UI with a form for new applications
+- Summary dashboard for totals, applied, rejected, ghosted, and offers
+- CSV import handling for common application spreadsheet headers
+- Real-time search and status filtering
+- Local persistence in the browser for quick offline use
+- REST API backend support with optional PostgreSQL storage when `DATABASE_URL` is configured
 
 ## Run locally
-Open the index.html file in a browser, or serve the folder with a simple static server such as:
+Open `index.html` in your browser, or serve the folder with a static server:
 
 ```bash
 python3 -m http.server 8000
 ```
 
-Then visit http://localhost:8000.
+Then open http://localhost:8000.
+
+### Run the backend
+Install dependencies and start the Express API:
+
+```bash
+npm install
+npm start
+```
+
+The backend runs on http://localhost:3000 by default and exposes REST endpoints at `/api/applications`.
+
+### Enable PostgreSQL storage
+Set `DATABASE_URL` before starting the server to persist data in PostgreSQL:
+
+```bash
+export DATABASE_URL="postgres://user:password@host:5432/database"
+npm start
+```
+
+If `DATABASE_URL` is not set, the backend falls back to local file storage under `./data/applications.json`.
 
 ## Future roadmap
-- CSV mapping for common Excel headers
-- Better analytics and charts
-- Search and summaries with AI assistance
+- Data visualization with charts for pipeline progress, response rates, and weekly application trends
+- Analytics and insights to identify strengths, gaps, and conversion rates
+- Conversational search so a chatbot can answer questions like “find my offer-stage applications” or “show applications for Company X”
+- Explore integration with OpenAI APIs and LangChain to enable natural-language queries over application data
+- Prototype a Chrome extension to automatically capture job postings and log new applications
+- Automatic application logging from confirmations, browser actions, or import helpers
+- Migration to a backend-backed app with authentication and persistent cloud storage
