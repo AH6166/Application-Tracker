@@ -15,6 +15,9 @@ const rejectedCount = document.getElementById('rejectedCount');
 const ghostedCount = document.getElementById('ghostedCount');
 const offersCount = document.getElementById('offersCount');
 const summaryCards = document.querySelectorAll('.summary-card');
+const statusChart = document.getElementById('statusChart');
+const timelineChart = document.getElementById('timelineChart');
+const timelineLabel = document.getElementById('timelineLabel');
 
 let applications = loadApplications();
 let activeStatusFilter = '';
@@ -398,6 +401,8 @@ function renderApplications() {
   if (applications.some((item) => item.status === 'Ghosted')) {
     saveApplications();
   }
+
+  renderVisualization();
 }
 
 toggleFormButton.addEventListener('click', () => {
@@ -449,3 +454,114 @@ tableBody.addEventListener('click', (event) => {
 });
 
 renderApplications();
+
+function getStatusCounts(applicationsList) {
+  const counts = {
+    Applied: 0,
+    Interview: 0,
+    OA: 0,
+    VO: 0,
+    Rejected: 0,
+    Ghosted: 0,
+    Offer: 0
+  };
+
+  applicationsList.forEach((application) => {
+    const status = application.status || 'Applied';
+    if (counts[status] !== undefined) {
+      counts[status] += 1;
+    } else {
+      counts.Applied += 1;
+    }
+  });
+
+  return counts;
+}
+
+function getMonthlyCounts(applicationsList) {
+  const counts = {};
+  const months = [];
+  const now = new Date();
+
+  for (let i = 5; i >= 0; i -= 1) {
+    const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+    counts[key] = 0;
+    months.push(key);
+  }
+
+  applicationsList.forEach((application) => {
+    if (!application.dateApplied) return;
+    const date = new Date(application.dateApplied);
+    if (Number.isNaN(date.getTime())) return;
+    const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+    if (counts[key] !== undefined) {
+      counts[key] += 1;
+    }
+  });
+
+  return months.map((month) => ({ month, count: counts[month] || 0 }));
+}
+
+function renderStatusChart() {
+  if (!statusChart) return;
+  const counts = getStatusCounts(applications);
+  const maxCount = Math.max(...Object.values(counts), 1);
+
+  statusChart.innerHTML = Object.entries(counts)
+    .filter(([, value]) => value > 0)
+    .map(([status, value]) => {
+      const width = Math.round((value / maxCount) * 100);
+      return `
+        <div class="chart-bar">
+          <div class="chart-bar-label">
+            <span>${status}</span>
+            <strong>${value}</strong>
+          </div>
+          <div class="chart-bar-track">
+            <div class="chart-bar-fill" style="width: ${width}%;"></div>
+          </div>
+        </div>
+      `;
+    })
+    .join('');
+}
+
+function renderTimelineChart() {
+  if (!timelineChart || !timelineLabel) return;
+
+  const monthly = getMonthlyCounts(applications);
+  const maxCount = Math.max(...monthly.map((item) => item.count), 1);
+  const points = monthly.map((item, index) => {
+    const x = 20 + index * 52;
+    const y = 110 - (item.count / maxCount) * 90;
+    return `${x},${y}`;
+  });
+
+  const backdrop = monthly
+    .map((item, index) => {
+      const x = 20 + index * 52;
+      const y = 110 - (item.count / maxCount) * 90;
+      return `<circle cx="${x}" cy="${y}" r="3" fill="#2563eb" />`;
+    })
+    .join('');
+
+  timelineChart.innerHTML = `
+    <polyline points="${points.join(' ')}" fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    ${backdrop}
+    ${monthly
+      .map((item, index) => {
+        const x = 20 + index * 52;
+        return `<text x="${x}" y="116" text-anchor="middle" font-size="10" fill="#475569">${item.month.slice(5)}</text>`;
+      })
+      .join('')}
+  `;
+
+  const totalApplications = monthly.reduce((sum, item) => sum + item.count, 0);
+  timelineLabel.textContent = `${totalApplications} applications in the last 6 months`;
+}
+
+function renderVisualization() {
+  renderStatusChart();
+  renderTimelineChart();
+}

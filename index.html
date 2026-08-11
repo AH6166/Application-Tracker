@@ -101,6 +101,33 @@
           </div>
         </div>
 
+        <section class="visualization-panel">
+          <div class="visualization-header">
+            <div>
+              <p class="eyebrow">Insights</p>
+              <h3>Application data visualization</h3>
+            </div>
+            <p class="visualization-note">Status distribution and trends over time.</p>
+          </div>
+
+          <div class="visualization-grid">
+            <article class="chart-card status-card">
+              <div class="chart-card-header">
+                <span>Status distribution</span>
+              </div>
+              <div id="statusChart" class="chart-bars"></div>
+            </article>
+
+            <article class="chart-card timeline-card">
+              <div class="chart-card-header">
+                <span>Applications over time</span>
+              </div>
+              <svg id="timelineChart" viewBox="0 0 320 120" aria-label="Application timeline chart"></svg>
+              <div id="timelineLabel" class="chart-note"></div>
+            </article>
+          </div>
+        </section>
+
         <div class="table-wrap">
           <table>
             <thead>
