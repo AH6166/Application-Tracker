@@ -15,6 +15,14 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname)));
 
+// AI routes (optional)
+try {
+  const aiRouter = require('./routes/ai');
+  app.use('/api', aiRouter);
+} catch (err) {
+  // AI routes not available (missing deps) — continue without failing
+}
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });

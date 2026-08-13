@@ -9,6 +9,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
-    "pg": "^8.13.0"
+    "pg": "^8.13.0",
+    "openai": "^4.21.0",
+    "langchain": "^0.0.1"
   }
 }

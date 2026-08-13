@@ -59,6 +59,9 @@ If `DATABASE_URL` is not set, the backend falls back to local file storage under
 - Analytics and insights to identify strengths, gaps, and conversion rates
 - Conversational search so a chatbot can answer questions like “find my offer-stage applications” or “show applications for Company X”
 - Explore integration with OpenAI APIs and LangChain to enable natural-language queries over application data
+	- Server API: POST `/api/ai-query` with JSON `{ "query": "your question", "topK": 5 }` — returns `{ answer, sources }`
+	- To enable: set `OPENAI_API_KEY` and run `npm install` to install `openai` (and optionally `langchain`).
+	- Optional: POST `/api/ai-refresh` to rebuild the local embeddings index after data changes.
 - Prototype a Chrome extension to automatically capture job postings and log new applications
 - Automatic application logging from confirmations, browser actions, or import helpers
 - Migration to a backend-backed app with authentication and persistent cloud storage
