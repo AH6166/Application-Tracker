@@ -145,8 +145,30 @@
           </table>
         </div>
       </section>
+
+      <section class="panel ai-panel">
+        <div class="applications-header">
+          <h2>Ask about your applications</h2>
+        </div>
+
+        <div class="ai-controls">
+          <textarea id="aiQueryInput" placeholder="Ask questions like: 'Show me rejected applications in July'" rows="2"></textarea>
+          <div class="ai-actions">
+            <button id="aiQuerySubmit">Ask</button>
+            <button id="aiRefreshIndex" class="secondary">Refresh Embeddings</button>
+          </div>
+        </div>
+
+        <div id="aiResult" class="ai-result hidden">
+          <h3>Answer</h3>
+          <div id="aiAnswer" class="ai-answer"></div>
+          <h4>Sources</h4>
+          <ul id="aiSources" class="ai-sources"></ul>
+        </div>
+      </section>
     </main>
 
     <script src="app.js"></script>
+    <script src="ai.js"></script>
   </body>
 </html>
